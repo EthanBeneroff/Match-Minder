@@ -88,9 +88,15 @@ DESCRIPTION: Match-Minder is an online tool for tracking upcoming soccer games/l
 | /competition | MatchesByCompetition.jsx |
 | /mymatches   | MyMatches.jsx            |
 
-### WireFrames
+### WireFrames for Page Views
 
 ![Alt WireFrame Home](READMEImages/MatchMinderHome.png)
 ![Alt WireFrame My Matches](READMEImages/MatchMinderMyMatches.png)
 ![Alt WireFrame Matches By Team](READMEImages/MatchMinderTeamPage.png)
+
+### React Tree
+
 ![Alt WireFrame React Tree](READMEImages/MatchMinderReactTree.png)
+
+### DB Schema
+![Alt DBSchema](READMEImages/matchMinderDBSchema.png)
