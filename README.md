@@ -67,15 +67,15 @@ DESCRIPTION: Match-Minder is an online tool for tracking upcoming soccer games/l
 
 ### API-ROUTES
 
-| API Route                   | Request Method    |
-|-----------------------------|-------------------|
-| /api/users                  | GET, POST, PATCH  |
-| /api/teams/<int:id>         | GET               |
-| /api/teams/<int:id>/matches | GET               |
-| /api/competitions           | GET               |
-| /api/competitions/teams     | GET               |
-| /api/savedmatch/<int:id>    | GET, POST, DELETE |
-| /api/match/<int:id>         | GET               |
+| API Route                   | Request Method           |
+|-----------------------------|--------------------------|
+| /api/users                  | GET, POST, PATCH, DELETE |
+| /api/teams/<int:id>         | GET                      |
+| /api/teams/<int:id>/matches | GET                      |
+| /api/competitions           | GET                      |
+| /api/competitions/teams     | GET                      |
+| /api/savedmatch/<int:id>    | GET, POST, DELETE        |
+| /api/match/<int:id>         | GET                      |
 
 ### CLIENT-ROUTES
 
@@ -93,3 +93,4 @@ DESCRIPTION: Match-Minder is an online tool for tracking upcoming soccer games/l
 ![Alt WireFrame Home](READMEImages/MatchMinderHome.png)
 ![Alt WireFrame My Matches](READMEImages/MatchMinderMyMatches.png)
 ![Alt WireFrame Matches By Team](READMEImages/MatchMinderTeamPage.png)
+![Alt WireFrame React Tree](READMEImages/MatchMinderReactTree.png)
