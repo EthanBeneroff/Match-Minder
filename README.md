@@ -61,6 +61,17 @@ DESCRIPTION: Match-Minder is an online tool for tracking upcoming soccer games/l
 | /api/savedmatch/<int:id>    | GET, POST, DELETE |
 | /api/match/<int:id>         | GET               |
 
+### CLIENT-ROUTES
+
+| Client Route | Component                |
+|--------------|--------------------------|
+| /            | Home.jsx                 |
+| /signup      | Signup.jsx               |
+| /login       | Login.jsx                |
+| /team        | MatchesByTeam.jsx        |
+| /competition | MatchesByCompetition.jsx |
+| /mymatches   | MyMatches.jsx            |
+
 ### WireFrames
 
 ![Alt WireFrame Home](READMEImages/MatchMinderHome.png)
