@@ -11,6 +11,10 @@ DESCRIPTION: Match-Minder is an online tool for tracking upcoming soccer games/l
 5. If a user has created an account, they can also select a favorite team. Upon doing so, their home page will now display the upcoming matches of their favorite team
 6. Users can click on teams or competitions anywhere on the website to display the upcoming matches in that league or of that team
 
+### Stretch Goals
+1. Users can see historic data of a team or competition
+2. Users can see live scores of current games
+3. Users can see line-ups/squads/goal-scorers/cards of teams involved in games
 
 ### Models
 
