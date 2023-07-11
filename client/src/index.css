@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #133120;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -66,4 +66,10 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+
+.navbar {
+  display: flex;
+  align-items: center;
 }

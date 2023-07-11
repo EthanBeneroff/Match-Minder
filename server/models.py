@@ -57,7 +57,7 @@ class Match(db.Model, SerializerMixin):
     awayTeamID = db.Column(db.Integer, db.ForeignKey('teams.id'))
     areaId = db.Column(db.Integer)
     areaName = db.Column(db.String)
-    utcDate = db.Column(db.DateTime)
+    utcDate = db.Column(db.String)
     competition = db.Column(db.Integer, db.ForeignKey('competitions.id'))
     winner = db.Column(db.Integer, db.ForeignKey('teams.id'))
 
@@ -71,7 +71,7 @@ class Match(db.Model, SerializerMixin):
     
 
     #serialize rules
-    serialize_rules = ('-teams.matches', '-competitions.matches', '-savedMatches.match')
+    serialize_rules = ('-homeTeam', '-awayTeam', '-competitions.matches', '-savedMatches.match', '-competitions.teams')
 
 
 
@@ -84,7 +84,7 @@ class Competition(db.Model, SerializerMixin):
     emblem = db.Column(db.String)
     
     #relationships
-    teams = db.relationship('Team', secondary='competitionTeams', back_populates='competitions')
+    teams = db.relationship('Team', secondary='competitionByTeam', back_populates='competitions')
     matches = db.relationship('Match', back_populates = 'competitions')
 
     #serialize rules
@@ -107,10 +107,21 @@ class Team(db.Model, SerializerMixin):
     #relationships
     homeMatches = db.relationship('Match', foreign_keys=[Match.homeTeamID], back_populates='homeTeam')
     awayMatches = db.relationship('Match', foreign_keys=[Match.awayTeamID], back_populates='awayTeam')
-    competitions = db.relationship('Competition', secondary='competitionTeams', back_populates='teams')
+    competitions = db.relationship('Competition', secondary='competitionByTeam', back_populates='teams')
 
     #serialize rules
-    serialize_rules = ('-matches.teams', '-competitions.teams')
+    serialize_rules = ('-homeMatches', '-awayMatches', '-competitions.teams')
+    
+    def to_dict(self):
+        return{
+            'id':self.id,
+            'name':self.name,
+            'shortName': self.shortName,
+            'crestImg' :self.crestImg,
+            'venue': self.venue,
+            'clubColors': self.clubColors,
+            # 'homeMatches': self.homeMatches
+        }
 
 class SavedMatch(db.Model, SerializerMixin):
     __tablename__ = 'savedMatches'
@@ -127,8 +138,10 @@ class SavedMatch(db.Model, SerializerMixin):
     serialize_rules = ('-user.savedMatches', '-match.savedMatches')
 
 class CompetitionByTeam(db.Model, SerializerMixin):
-    __tablename__ = 'competitionTeams'
+    __tablename__ = 'competitionByTeam'
 
     id = db.Column(db.Integer, primary_key=True)
     teamId = db.Column(db.Integer, db.ForeignKey('teams.id'))
     competitionId = db.Column(db.Integer, db.ForeignKey('competitions.id'))
+
+    
