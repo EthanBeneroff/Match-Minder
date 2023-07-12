@@ -72,6 +72,106 @@ class MatchesByTeam(Resource):
     
 api.add_resource(MatchesByTeam, '/<int:teamID>/matches')
 
+class AllLeagues(Resource):
+    def get(self):
+        leagues_list = Competition.query.all()
+        leagues_dict = [league.to_dict() for league in leagues_list]
+        return jsonify(leagues_dict)
+
+api.add_resource(AllLeagues, '/leagues')
+
+class Login(Resource):
+
+    def post(self):
+        data = request.get_json()
+        email = data.get('email')
+        password = data.get('password')
+
+        user = User.query.filter(User.email == email).first()
+
+        if user:
+            if user.authenticate(password):
+                login_user(user, remember=True)
+                return {'message': 'Login successful'}, 200
+        return {'error': '401 Unauthorized'}, 401
+
+
+api.add_resource(Login, '/login')
+
+
+@app.route("/logout", methods=["POST"])
+@login_required
+def logout():
+    logout_user()
+    return f'You have logged out. Goodbye'
+
+@app.route("/deleteaccount", methods=["DELETE"])
+@login_required
+def deleteAccount():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    user = User.query.filter(User.email == email).first()
+    if user:
+        if user.authenticate(password):
+            db.session.delete(user)
+            db.session.commit()
+            return {'message': 'deleted user'}, 200
+
+
+class Signup(Resource):
+    def post(self):
+        try:
+            data = request.get_json()
+            new_user = User(
+                email=data['email']
+            )
+            new_user.password_hash = data['password']
+            db.session.add(new_user)
+            db.session.commit()
+
+            login_user(new_user, remember=True)
+
+            return new_user.to_dict(), 201
+        except:
+            return {'Error': 'Could not Create new User'}
+
+
+api.add_resource(Signup, '/signup')
+
+
+class SavedMatches(Resource):
+    @login_required
+    def get(self):
+        user = current_user
+        matches_list = SavedMatch.query.filter_by(userId=user.id).first()
+        if matches_list:
+            matches_dict = [match.to_dict() for match in matches_list]
+            return jsonify(matches_dict)
+        return {'message': 'no saved matches'}
+    def post(self): 
+        user = current_user
+        data = request.get_json()
+        new_match_id = data['id']
+        new_saved_match = SavedMatch(userId=user.id, matchId=new_match_id)
+        db.session.add(new_saved_match)
+        db.session.commit()
+        return new_saved_match.to_dict(), 200
+    def delete(self):
+        user = current_user
+        data = request.get_json()
+        delete_match_id = data['id']
+        match_to_delete = SavedMatch.query.filter((SavedMatch.userId==user.id) & (SavedMatch.matchId==delete_match_id)).first()
+        if match_to_delete:
+            db.session.delete(match_to_delete)
+            db.session.commit()
+            return {'message': 'match deleted successfully'}
+        return {'error': 'could not delete match'}
+        
+
+
+
+api.add_resource(SavedMatches, '/mymatches')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

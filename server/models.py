@@ -88,7 +88,7 @@ class Competition(db.Model, SerializerMixin):
     matches = db.relationship('Match', back_populates = 'competitions')
 
     #serialize rules
-    serialize_rules = ('-teams.competitions', '-matches.competitions')
+    serialize_rules = ('-teams', '-matches')
 
 class Team(db.Model, SerializerMixin):
     __tablename__ = 'teams'
