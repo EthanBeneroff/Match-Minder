@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div>Footer</div>
+    <img src = 'https://static.thenounproject.com/png/1815936-200.png'/>
   )
 }
 

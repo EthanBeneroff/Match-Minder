@@ -1,10 +1,12 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button';
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import AuthContext from './AuthContext';
 
 
 function MatchCard({match, favorite, onMatchRemove}) {
+    const { isAuthenticated, login, logout } = useContext(AuthContext)
     const [fave, setFave] = useState(favorite)
 
 
@@ -62,12 +64,16 @@ function MatchCard({match, favorite, onMatchRemove}) {
 
   return (
     <Card>
-        <Card.Img src = ""/>
+        <Card.Img src = {match.awayTeam.crestImg}/>
+        <Card.Img src = {match.homeTeam.crestImg}/>
         <Card.Body>
         <Card.Title>MatchDay: {match.matchDay}</Card.Title>
-        <Card.Text> {match.awayTeamID} at {match.homeTeamID}</Card.Text>
+        <Card.Text> {match.awayTeamName} at {match.homeTeamName}</Card.Text>
         <Card.Text>{match.utcDate}</Card.Text>
-        <Button onClick = {() => handleClick(match.id)}>{fave ? 'Remove' : 'Save'}</Button>
+        {isAuthenticated &&(
+         <Button onClick = {() => handleClick(match.id)}>{fave ? 'Remove' : 'Save'}</Button>
+          )}
+        
         </Card.Body>
     </Card>
   )

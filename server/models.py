@@ -70,8 +70,47 @@ class Match(db.Model, SerializerMixin):
     awayTeam = db.relationship('Team', foreign_keys=[awayTeamID], back_populates='awayMatches')
     
 
+    @hybrid_property
+    def homeTeamName(self):
+        return self.homeTeam.name if self.homeTeam else ''
+
+    @hybrid_property
+    def awayTeamName(self):
+        return self.awayTeam.name if self.awayTeam else ''
+
+    @hybrid_property
+    def homeTeamCrestImg(self):
+        return self.homeTeam.crestImg if self.homeTeam else ''
+
+    @hybrid_property
+    def awayTeamCrestImg(self):
+        return self.awayTeam.crestImg if self.awayTeam else ''
+    
+    def to_dict(self):
+        serialized = super(Match, self).to_dict()
+        serialized['homeTeamName'] = self.homeTeamName
+        serialized['awayTeamName'] = self.awayTeamName
+        return serialized
+
+    @classmethod
+    def from_dict(cls, data):
+        home_team_name = data.pop('homeTeamName', None)
+        away_team_name = data.pop('awayTeamName', None)
+        instance = super(Match, cls).from_dict(data)
+        instance.homeTeamName = home_team_name
+        instance.awayTeamName = away_team_name
+        return instance
+    
     #serialize rules
-    serialize_rules = ('-homeTeam', '-awayTeam', '-competitions.matches', '-savedMatches.match', '-competitions.teams')
+
+    serialize_rules = (
+        '-homeTeam.matches', 
+        '-awayTeam.matches', 
+        '-competitions.matches', 
+        '-savedMatches.match', 
+        '-competitions.teams',
+        'homeTeam.name',
+        'awayTeam.name')
 
 
 
