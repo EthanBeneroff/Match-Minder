@@ -70,7 +70,7 @@ class MatchesByTeam(Resource):
         matches_dict = [match.to_dict() for match in matches_list]
         return jsonify(matches_dict)
     
-api.add_resource(MatchesByTeam, '/<int:teamID>/matches')
+api.add_resource(MatchesByTeam, '/team/<int:teamID>/matches')
 
 class AllLeagues(Resource):
     def get(self):
@@ -79,6 +79,14 @@ class AllLeagues(Resource):
         return jsonify(leagues_dict)
 
 api.add_resource(AllLeagues, '/leagues')
+
+class MatchesByLeague(Resource):
+    def get(self, leagueID):
+        matches_list = Match.query.filter(Match.competition==leagueID).all()
+        matches_dict = [match.to_dict() for match in matches_list]
+        return jsonify(matches_dict)
+    
+api.add_resource(MatchesByLeague, '/league/<int:leagueID>/matches')
 
 class Login(Resource):
 

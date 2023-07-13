@@ -1,9 +1,25 @@
 import React from 'react'
 import {Nav, Navbar, Container} from "react-bootstrap"
 import { Link } from 'react-router-dom'
+import { useState, useContext } from 'react'
+import Login from './Login'
+import AuthContext from './AuthContext'
 
 function Header() {
+
+const {isAuthenticated, login, logout} = useContext(AuthContext)
+const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleLoginClick = () => {
+    setShowLoginModal(true);
+  };
+
+  const handleCloseLoginModal = () => {
+    setShowLoginModal(false);
+  };
+
   return (
+    <>
     <Navbar expand="lg" >
       <Container>
         <Navbar.Brand>
@@ -13,9 +29,10 @@ function Header() {
         {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav style={{ width: "100%" }}>
-          <Nav.Link
+            {!isAuthenticated &&(<><Nav.Link
                   as={Link}
-                  to="/login"
+                  
+                  onClick={handleLoginClick}
                 >
                 Login
                 </Nav.Link>
@@ -24,17 +41,39 @@ function Header() {
                   to="/signup"
                 >
                 Sign Up
-                </Nav.Link>
+                </Nav.Link></>)}
+          
                 <Nav.Link
                   as={Link}
                   to="/matchesByTeam"
                 >
                 Matches By Team
                 </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/matchesByCompetition"
+                >
+                Matches By Competition
+                </Nav.Link>
+                {isAuthenticated && (<Nav.Link
+                  as={Link}
+                  to="/myMatches"
+                >
+                myMatches
+                </Nav.Link>)}
+                <Nav.Link
+                    onClick={logout}
+                  as={Link}
+                  to="/"
+                >
+                Log Out
+                </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    {showLoginModal && <Login show={showLoginModal} onClose={handleCloseLoginModal} />}
+    </>
   )
 }
 
