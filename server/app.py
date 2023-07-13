@@ -70,7 +70,7 @@ class MatchesByTeam(Resource):
         matches_dict = [match.to_dict() for match in matches_list]
         return jsonify(matches_dict)
     
-api.add_resource(MatchesByTeam, '/<int:teamID>/matches')
+api.add_resource(MatchesByTeam, '/team/<int:teamID>/matches')
 
 class AllLeagues(Resource):
     def get(self):
@@ -80,13 +80,21 @@ class AllLeagues(Resource):
 
 api.add_resource(AllLeagues, '/leagues')
 
+class MatchesByLeague(Resource):
+    def get(self, leagueID):
+        matches_list = Match.query.filter(Match.competition==leagueID).all()
+        matches_dict = [match.to_dict() for match in matches_list]
+        return jsonify(matches_dict)
+    
+api.add_resource(MatchesByLeague, '/league/<int:leagueID>/matches')
+
 class Login(Resource):
 
     def post(self):
         data = request.get_json()
         email = data.get('email')
         password = data.get('password')
-
+        #ipdb.set_trace()
         user = User.query.filter(User.email == email).first()
 
         if user:
@@ -104,6 +112,19 @@ api.add_resource(Login, '/login')
 def logout():
     logout_user()
     return f'You have logged out. Goodbye'
+
+@app.route('/myTeam', methods=["PATCH"])
+@login_required
+def changeTeam():
+    data = request.get_json()
+    user = current_user
+    for attr in data:
+        setattr(user, attr, data.get(attr))
+    db.session.add(user)
+    db.session.commit()
+    return {user.to_dict(), 200}
+
+
 
 @app.route("/deleteaccount", methods=["DELETE"])
 @login_required
@@ -144,9 +165,11 @@ class SavedMatches(Resource):
     @login_required
     def get(self):
         user = current_user
-        matches_list = SavedMatch.query.filter_by(userId=user.id).first()
+        
+        matches_list = SavedMatch.query.filter_by(userId=user.id).all()
         if matches_list:
             matches_dict = [match.to_dict() for match in matches_list]
+            #ipdb.set_trace()
             return jsonify(matches_dict)
         return {'message': 'no saved matches'}
     def post(self): 
@@ -168,9 +191,6 @@ class SavedMatches(Resource):
             return {'message': 'match deleted successfully'}
         return {'error': 'could not delete match'}
         
-
-
-
 api.add_resource(SavedMatches, '/mymatches')
 
 if __name__ == '__main__':
