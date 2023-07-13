@@ -70,13 +70,21 @@ const [showSignUpModal, setShowSignUpModal] = useState(false)
                   to="/myMatches"
                 >
                 myMatches
-                </Nav.Link><Nav.Link
+                </Nav.Link>
+                <Nav.Link
                     onClick={logout}
                   as={Link}
                   to="/"
                 >
                 Log Out
-                </Nav.Link></>)}
+                </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/profile"
+                >
+                My Profile
+                </Nav.Link>
+                </>)}
                 
           </Nav>
         </Navbar.Collapse>

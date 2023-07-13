@@ -130,22 +130,22 @@ def changeTeam():
         setattr(user, attr, data.get(attr))
     db.session.add(user)
     db.session.commit()
-    return {user.to_dict(), 200}
+    return {"message":"team updated"}, 200
 
 
 
 @app.route("/deleteaccount", methods=["DELETE"])
 @login_required
 def deleteAccount():
-    data = request.get_json()
-    email = data.get('email')
-    password = data.get('password')
-    user = User.query.filter(User.email == email).first()
+    user = current_user
+    # data = request.get_json()
+    # email = data.get('email')
+    # password = data.get('password')
+    # user = User.query.filter(User.email == email).first()
     if user:
-        if user.authenticate(password):
-            db.session.delete(user)
-            db.session.commit()
-            return {'message': 'deleted user'}, 200
+        db.session.delete(user)
+        db.session.commit()
+        return {'message': 'deleted user'}, 200
 
 
 class Signup(Resource):

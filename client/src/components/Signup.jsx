@@ -72,7 +72,7 @@ function Signup({show, onClose}) {
           onHide={onClose}
         >
           <Modal.Dialog>
-            <Modal.Header closeButton>
+            <Modal.Header>
               <Modal.Title>SignUp</Modal.Title>
             </Modal.Header>
     
