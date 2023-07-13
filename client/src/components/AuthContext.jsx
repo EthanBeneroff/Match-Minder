@@ -7,35 +7,44 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setAuthenticated] = useState(false);
   
-    const login = async (email, password) => {
-        try {
-          const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
+    const login = (values) => {
+        console.log(values);
+        fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        })
+          .then((response) => {
+            if (response.ok) {
+              setAuthenticated(true);
+              return {"message" : "logged in successfully"};
+            }
+            // Handle login error
+            throw new Error('Login failed');
+          })
+          .catch((error) => {
+            // Handle general error
+            console.error('Login error:', error);
           });
-    
-          if (response.ok) {
-            setAuthenticated(true);
-            return {"message" : "logged in successfully"}
-        } 
-        } catch (error) {
-          // write login error
-        }
       };
   
-      const logout = async () => {
-        try {
-          const response = await fetch('/api/logout', {
-            method: 'POST',
+      const logout = () => {
+        fetch('/api/logout', {
+          method: 'POST',
+        })
+          .then((response) => {
+            if (response.ok) {
+              setAuthenticated(false);
+            }
+            // Handle logout error
+            throw new Error('Logout failed');
+          })
+          .catch((error) => {
+            // Handle general error
+            console.error('Logout error:', error);
           });
-    
-          if (response.ok) {setAuthenticated(false);} 
-        } catch (error) {
-          // write logout error
-        }
       };
   
     return (

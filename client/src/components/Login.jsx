@@ -72,7 +72,7 @@ function Login({show, onClose}) {
                     />
                     <ErrorMessage name="password" component="div" />
                   </div>
-                  <button onClick ={onClose}>Close</button>
+                  <button type="button" onClick ={onClose}>Close</button>
                     <button  type="submit">Log In</button>
                 </Form>
               </Formik>
