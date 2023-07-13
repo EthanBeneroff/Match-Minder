@@ -31,7 +31,8 @@ function Login({show, onClose}) {
         };
         console.log(userData)
         console.log(values)
-        login(values)}
+        login(values)
+    }
 
     return (
         <Modal

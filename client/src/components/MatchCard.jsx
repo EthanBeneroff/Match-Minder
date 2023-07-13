@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/Button';
 import {useState} from 'react'
 
 
-function MatchCard({match}) {
-    const [fave, setFave] = useState(false)
+function MatchCard({match, favorite}) {
+    const [fave, setFave] = useState(favorite)
 
 
     function handleClick(matchId){

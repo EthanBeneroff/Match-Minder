@@ -27,7 +27,9 @@ function App() {
           {!isAuthenticated &&(
           <Route path="/login" element={<Login />} />
           )}
-          {!isAuthenticated &&( <Route path="/signup" element={<Signup />} />)}
+          {!isAuthenticated &&( 
+          <Route path="/signup" element={<Signup />} />
+          )}
           <Route path="/" index element={<Home />} />
           <Route path="/matchesByCompetition" element={<MatchesByCompetition/>} />
           <Route path="/matchesByTeam" element={<MatchesByTeam />} />

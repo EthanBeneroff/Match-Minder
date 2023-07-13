@@ -34,6 +34,7 @@ function MatchesByCompetition() {
         }
       }, [competition]);
 
+
       const handleSelect = (selectedValue) => {
         setCompetition(selectedValue);
       };
@@ -43,7 +44,7 @@ function MatchesByCompetition() {
       )})
 
       const matchesArray = matches.map((match) => (
-        <MatchCard key={match.id} match={match} />
+        <MatchCard key={match.id} match={match} favorite={false}/>
       ));
 
 

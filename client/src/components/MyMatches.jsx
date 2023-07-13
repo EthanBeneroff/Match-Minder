@@ -12,11 +12,12 @@ function MyMatches() {
             console.log(error);
           });
       }, []);
-    
 
-    const matchesArray = matches.map((match) => (
-        <MatchCard key={match.id} match={match} />
-      ));
+      let matchesArray=null
+      if (matches.length>0){matchesArray = matches.map((match) => (
+        <MatchCard key={match.id} match={match} favorite={true}/>
+      ));}
+    
 
 
   return (

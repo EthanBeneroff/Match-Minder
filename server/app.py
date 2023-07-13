@@ -72,6 +72,14 @@ class MatchesByTeam(Resource):
     
 api.add_resource(MatchesByTeam, '/team/<int:teamID>/matches')
 
+class OneMatch(Resource):
+    def get(self, matchId):
+        match = Match.query.filter_by(id=matchId).first().to_dict()
+        return jsonify(match)
+
+
+api.add_resource(OneMatch, '/matches/<int:matchId>')
+
 class AllLeagues(Resource):
     def get(self):
         leagues_list = Competition.query.all()
@@ -168,7 +176,8 @@ class SavedMatches(Resource):
         
         matches_list = SavedMatch.query.filter_by(userId=user.id).all()
         if matches_list:
-            matches_dict = [match.to_dict() for match in matches_list]
+            real_matches_list = Match.query.join(SavedMatch, Match.id == SavedMatch.matchId).filter(SavedMatch.userId == user.id).all()
+            matches_dict = [match.to_dict() for match in real_matches_list]
             #ipdb.set_trace()
             return jsonify(matches_dict)
         return {'message': 'no saved matches'}
