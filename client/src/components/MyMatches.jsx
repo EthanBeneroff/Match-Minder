@@ -13,9 +13,13 @@ function MyMatches() {
           });
       }, []);
 
+      const handleMatchRemove = (matchId) => {
+        setMatches(prevMatches => prevMatches.filter(match => match.id !== matchId));
+      };
+
       let matchesArray=null
       if (matches.length>0){matchesArray = matches.map((match) => (
-        <MatchCard key={match.id} match={match} favorite={true}/>
+        <MatchCard key={match.id} match={match} favorite={true} onMatchRemove={handleMatchRemove}/>
       ));}
     
 

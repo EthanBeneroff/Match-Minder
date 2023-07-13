@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import {useState} from 'react'
 
 
-function MatchCard({match, favorite}) {
+function MatchCard({match, favorite, onMatchRemove}) {
     const [fave, setFave] = useState(favorite)
 
 
@@ -46,13 +46,19 @@ function MatchCard({match, favorite}) {
                 if (response.ok) {
                   setFave((prev) => !prev)
                   console.log("Removed Match")
+                  if (onMatchRemove) {
+                    onMatchRemove(matchId);
+                  }
                 }
                 return response.json();
             })
             .then((data => console.log(data)))
             .catch((error) => {console.error("Error saving match", error)
         })
+        
     }
+
+    
 
   return (
     <Card>
@@ -66,5 +72,9 @@ function MatchCard({match, favorite}) {
     </Card>
   )
 }
+
+MatchCard.defaultProps = {
+            onMatchRemove: null
+          };
 
 export default MatchCard
