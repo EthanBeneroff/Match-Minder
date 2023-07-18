@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownItem from 'react-bootstrap/esm/DropdownItem'
 import MatchCard from './MatchCard'
+import Form from 'react-bootstrap/Form'
 
 function MatchesByTeam() {
     const [teams, setTeams] = useState([])
@@ -26,7 +27,10 @@ function MatchesByTeam() {
             console.log(team)
         fetch(`/api/team/${team}/matches`)
           .then((response) => response.json())
-          .then((data) => setMatches(data))
+          .then((data) => {
+            const sortedMatches = data.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+            setMatches(sortedMatches)
+        })
           .then(console.log(matches))
           .catch((error) => {
             console.log(error);
@@ -35,30 +39,35 @@ function MatchesByTeam() {
       }, [team]);
 
 
-      const handleSelect = (selectedValue) => {
+    //   const handleSelect = (selectedValue) => {
+    //     setTeam(selectedValue);
+    //   };
+
+      const handleSelect = (event) => {
+        console.log(event.target.value)
+        const selectedValue = event.target.value;
         setTeam(selectedValue);
       };
 
       const teamOptions = teams.map((item) =>{
-        return (<DropdownItem key={item.id} eventKey={item.id}>{item.shortName} </DropdownItem>
+        return (<option key={item.id} value={item.id}>{item.shortName} </option>
       )})
 
       const matchesArray = matches.map((match) => (
         <MatchCard key={match.id} match={match} favorite={false}/>
       ));
 
+      
+
 
   return (
     <div>
-    <Dropdown onSelect={handleSelect}>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Team
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        {teamOptions}
-      </Dropdown.Menu>
-    </Dropdown>
+    <Form.Select onChange={handleSelect} aria-label="Default select example">
+    <option disabled selected>
+          Select Team
+        </option>
+      {teamOptions}
+    </Form.Select>
     {matchesArray}
     </div>
   )

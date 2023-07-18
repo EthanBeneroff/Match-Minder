@@ -11,6 +11,7 @@ import Signup from './components/Signup';
 import Home from './components/Home';
 import AuthContext from './components/AuthContext';
 import Profile from './components/Profile';
+import Standings from './components/Standings';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/" index element={<Home />} />
           <Route path="/matchesByCompetition" element={<MatchesByCompetition/>} />
           <Route path="/matchesByTeam" element={<MatchesByTeam />} />
+          <Route path="/standings" element={<Standings/>} />
           {isAuthenticated &&( <Route path="/myMatches" element={<MyMatches />} />)}
           {isAuthenticated &&( <Route path="/profile" element={<Profile />} />)}
           

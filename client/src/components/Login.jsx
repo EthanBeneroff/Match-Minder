@@ -39,9 +39,14 @@ function Login({show, onClose}) {
           show = {show}
           className="modal show"
           style={{ display: 'block', position: 'initial' }}
+          centered={true}
           onHide={onClose}
+          animation={true}
+          autoFocus={true}
+          
         >
-          <Modal.Dialog>
+            <div>
+          
             <Modal.Header>
               <Modal.Title>Login</Modal.Title>
             </Modal.Header>
@@ -82,7 +87,7 @@ function Login({show, onClose}) {
             <Modal.Footer>
               
             </Modal.Footer>
-          </Modal.Dialog>
+            </div>
         </Modal>
       );
     }

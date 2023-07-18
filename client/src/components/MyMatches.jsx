@@ -7,7 +7,8 @@ function MyMatches() {
     useEffect(() => {
         fetch(`/api/mymatches`)
           .then((response) => response.json())
-          .then((data) => setMatches(data))
+          .then((data) => {const sortedMatches = data.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+            setMatches(sortedMatches)})
           .catch((error) => {
             console.log(error);
           });
@@ -24,11 +25,12 @@ function MyMatches() {
     
 
 
-  return (
-    <div>
-        {matchesArray}
-    </div>
-  )
-}
+      if (matchesArray==null) {
+        return <p>You have no saved matches.</p>
+      }
+    
+      return <div>{matchesArray}</div>;
+    }
+    
 
 export default MyMatches

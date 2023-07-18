@@ -1,9 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react'
-import Dropdown from 'react-bootstrap/Dropdown'
-import DropdownItem from 'react-bootstrap/esm/DropdownItem'
 import Modal from 'react-bootstrap/Modal'
 import {useNavigate} from 'react-router-dom';
 import AuthContext from './AuthContext';
+import Form from 'react-bootstrap/Form'
 
 function Profile() {
 const [teams, setTeams] = useState([])
@@ -32,12 +31,13 @@ useEffect(() => {
 
   let teamOptions=null
   if(teams.length > 0){teamOptions = teams.map((item) =>{
-    return (<DropdownItem key={item.id} eventKey={item.id}>{item.shortName} </DropdownItem>
+    return (<option key={item.id} value={item.id}>{item.shortName} </option>
   )})}
   
 
-  const handleSelect = (selectedValue) => {
-    console.log(selectedValue)
+  const handleSelect = (event) => {
+    console.log(event.target.value)
+    const selectedValue = event.target.value
     fetch('/api/myTeam',{
         method: 'PATCH',
         headers: {
@@ -66,15 +66,14 @@ useEffect(() => {
 
 return (
     <div>
-    <Dropdown onSelect={handleSelect}>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Favorite Team
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
+    <Form.Select onChange={handleSelect} aria-label="Default select example">
+    <option disabled selected>
+          Select Favorite Team
+        </option>
+        
         {teamOptions}
-      </Dropdown.Menu>
-    </Dropdown>
+        </Form.Select>
+
     <button onClick = {handleDeleteClick}>DELETE MY PROFILE (why?)</button>
     <Modal
           show = {showDeleteModal}

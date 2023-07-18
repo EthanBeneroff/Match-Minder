@@ -1,13 +1,15 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import Dropdown from 'react-bootstrap/Dropdown'
-import DropdownItem from 'react-bootstrap/esm/DropdownItem'
 import MatchCard from './MatchCard'
+import Form from 'react-bootstrap/Form'
+
 
 function MatchesByCompetition() {
     const [competitions, setCompetitions] = useState([])
     const [competition, setCompetition] = useState('')
     const [matches, setMatches] = useState([])
+
+
 
     //get leagues
     useEffect(() => {
@@ -19,6 +21,8 @@ function MatchesByCompetition() {
           });
       }, []);
 
+      
+
 
     //get matches for a given league
     useEffect(() => {
@@ -27,7 +31,7 @@ function MatchesByCompetition() {
         fetch(`/api/league/${competition}/matches`)
           .then((response) => response.json())
           .then((data) => setMatches(data))
-          .then(console.log(matches))
+        //   .then(console.log(matches))
           .catch((error) => {
             console.log(error);
           });
@@ -35,13 +39,17 @@ function MatchesByCompetition() {
       }, [competition]);
 
 
-      const handleSelect = (selectedValue) => {
+      const handleSelect = (event) => {
+        console.log(event.target.value)
+        const selectedValue = event.target.value;
         setCompetition(selectedValue);
       };
 
+
       const leagueOptions = competitions.map((item) =>{
-        return (<DropdownItem key={item.id} eventKey={item.id}>{item.name} </DropdownItem>
+        return (<option key={item.id} value={item.id}>{item.name} </option>
       )})
+
 
       const matchesArray = matches.map((match) => (
         <MatchCard key={match.id} match={match} favorite={false}/>
@@ -49,16 +57,14 @@ function MatchesByCompetition() {
 
 
   return (
-    <div>
-    <Dropdown onSelect={handleSelect}>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Competition
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        {leagueOptions}
-      </Dropdown.Menu>
-    </Dropdown>
+    <div className="matches-container">
+        
+    <Form.Select onChange={handleSelect} aria-label="Default select example">
+    <option disabled selected>
+          Select Competition
+        </option>
+      {leagueOptions}
+    </Form.Select>
     {matchesArray}
     </div>
   )

@@ -39,6 +39,12 @@ const [showSignUpModal, setShowSignUpModal] = useState(false)
         {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav style={{ width: "100%" }}>
+          {isAuthenticated && (<><Nav.Link
+                  as={Link}
+                  to="/"
+                >
+                Home
+                </Nav.Link></>)}
             {!isAuthenticated &&(<><Nav.Link
                   as={Link}
                   
@@ -57,26 +63,25 @@ const [showSignUpModal, setShowSignUpModal] = useState(false)
                   as={Link}
                   to="/matchesByTeam"
                 >
-                Matches By Team
+                Teams
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
                   to="/matchesByCompetition"
                 >
-                Matches By Competition
+                Competitions
+                </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/standings"
+                >
+                Standings
                 </Nav.Link>
                 {isAuthenticated && (<><Nav.Link
                   as={Link}
                   to="/myMatches"
                 >
-                myMatches
-                </Nav.Link>
-                <Nav.Link
-                    onClick={logout}
-                  as={Link}
-                  to="/"
-                >
-                Log Out
+                My Matches
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
@@ -84,6 +89,14 @@ const [showSignUpModal, setShowSignUpModal] = useState(false)
                 >
                 My Profile
                 </Nav.Link>
+                <Nav.Link
+                    onClick={logout}
+                  as={Link}
+                  to="/login"
+                >
+                Log Out
+                </Nav.Link>
+                
                 </>)}
                 
           </Nav>

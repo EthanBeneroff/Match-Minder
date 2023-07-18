@@ -73,3 +73,23 @@ button:focus-visible {
   display: flex;
   align-items: center;
 }
+
+.crestImg {
+  min-width: 100px;
+  min-height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.competitionImg{
+  min-width: 100px;
+  min-height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.matches-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

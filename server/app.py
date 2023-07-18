@@ -132,6 +132,18 @@ def changeTeam():
     db.session.commit()
     return {"message":"team updated"}, 200
 
+@app.route('/myTeamsMatches', methods=["GET"])
+@login_required
+def getTeam():
+    user = current_user
+    favTeamId=user.favTeam
+    if favTeamId is not None:
+            matches_list = Match.query.filter((Match.homeTeamID == favTeamId) | (Match.awayTeamID==favTeamId)).all()
+            matches_dict = [match.to_dict() for match in matches_list]
+            return jsonify(matches_dict)
+    return {"message": "Favorite team not found"}, 404
+    
+
 
 
 @app.route("/deleteaccount", methods=["DELETE"])
@@ -201,6 +213,17 @@ class SavedMatches(Resource):
         return {'error': 'could not delete match'}
         
 api.add_resource(SavedMatches, '/mymatches')
+
+
+class LeagueStandings(Resource):
+    def get(self, leagueId, year):
+        url = f'https://api.football-data.org/v4/competitions/{leagueId}/standings?season={year}'
+        response = requests.get(url, headers=xAuthHeader)
+        response_json = response.json()
+        return jsonify(response_json)
+
+api.add_resource(LeagueStandings, '/<int:leagueId>/standings/<string:year>')
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import AuthContext from './AuthContext';
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 
 function Signup({show, onClose}) {
@@ -65,6 +67,8 @@ function Signup({show, onClose}) {
 
 
     return (
+        <>
+        
         <Modal
           show = {show}
           className="modal show"
@@ -73,7 +77,7 @@ function Signup({show, onClose}) {
         >
           <Modal.Dialog>
             <Modal.Header>
-              <Modal.Title>SignUp</Modal.Title>
+              <Modal.Title>Sign Up</Modal.Title>
             </Modal.Header>
     
             <Modal.Body>
@@ -124,6 +128,8 @@ function Signup({show, onClose}) {
             </Modal.Footer>
           </Modal.Dialog>
         </Modal>
+        
+        </>
       );
     }
 
