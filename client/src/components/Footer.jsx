@@ -6,7 +6,7 @@ function Footer() {
   };
 
   return (
-    <img
+    <img className='footer'
       src="https://static.thenounproject.com/png/1815936-200.png"
       style={{ cursor: 'pointer' }}
       onClick={scrollToTop}

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form'
+import { Container, Row, Col } from 'react-bootstrap';
 
 function Standings() {
     // console.log('Standings data type:', typeof standings)
@@ -78,6 +79,9 @@ function Standings() {
         {yearOptions}
       </Form.Select>
       {standings && standings[0]?.table && standings[0].table.length > 0 ? (
+        <Container className="standings-container d-flex justify-content-center">
+        <Row>
+          <Col>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -96,6 +100,9 @@ function Standings() {
             ))}
           </tbody>
         </Table>
+        </Col>
+      </Row>
+    </Container>
       ) : (
         <div>No standings data available.</div>
       )}

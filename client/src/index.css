@@ -32,6 +32,11 @@ body {
   padding-top: 60px;
 }
 
+main {
+  flex: 1;
+  padding-bottom: 80px; /* Add your desired space for the footer (e.g., 80px) */
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -171,4 +176,5 @@ button:focus-visible {
   box-shadow: 0 0 0 2px #007bff; /* Add a blue border when focused */
   z-index: 2; /* Ensure the select box is above other elements */
 }
+
 

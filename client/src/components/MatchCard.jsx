@@ -87,7 +87,7 @@ function MatchCard({match, favorite, onMatchRemove}) {
   }
 
   return (
-    <Card>
+    <Card >
         
 
       {match.awayTeam?.crestImg && (
