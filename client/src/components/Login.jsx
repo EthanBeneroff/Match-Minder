@@ -39,13 +39,13 @@ function Login({show, onClose}) {
           show = {show}
           className="modal show"
           style={{ display: 'block', position: 'initial' }}
-          centered={true}
+          centered
           onHide={onClose}
           animation={true}
           autoFocus={true}
           
         >
-            <div>
+            <div className="login-modal-container">
           
             <Modal.Header>
               <Modal.Title>Login</Modal.Title>

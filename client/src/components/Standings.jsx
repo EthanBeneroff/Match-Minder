@@ -47,7 +47,7 @@ function Standings() {
 
 
       const currentYear = new Date().getFullYear();
-      const lastTenYears = Array.from({ length: 10 }, (_, index) => currentYear - index);
+      const lastTenYears = Array.from({ length: 4 }, (_, index) => currentYear - index);
 
       const yearOptions = lastTenYears.map((year) => (
         <option key={year} value={year}>

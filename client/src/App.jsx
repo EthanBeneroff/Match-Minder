@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap-grid.css';
 import { useState, useContext } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css'
@@ -14,17 +15,36 @@ import Profile from './components/Profile';
 import Standings from './components/Standings';
 
 
+
+
+
 function App() {
   const { isAuthenticated, login, logout } = useContext(AuthContext)
-  // console.log(login)
-  function testfunction(testparam){
-    console.log("this is a test" + testparam)
-  }
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [showSignUpModal, setShowSignUpModal] = useState(false) 
+
+  const handleLoginClick = () => {
+    setShowLoginModal(true);
+  };
+
+  const handleCloseLoginModal = () => {
+    setShowLoginModal(false);
+  };
+
+  const handleSignUpClick = () => {
+    setShowSignUpModal(true);
+  };
+
+  const handleCloseSignUpModal = () => {
+    setShowSignUpModal(false);
+  };
 
   return (
     <div>
       <Router>
-        <Header/>
+        <Header 
+          handleLoginClick={handleLoginClick}
+          handleSignUpClick={handleSignUpClick}/>
         <Routes>
           {!isAuthenticated &&(
           <Route path="/login" element={<Login />} />
@@ -43,6 +63,12 @@ function App() {
         </Routes>
         <Footer />
       </Router>
+      {showLoginModal && (
+        <Login show={showLoginModal} onClose={handleCloseLoginModal} />
+      )}
+      {showSignUpModal && (
+        <Signup show={showSignUpModal} onClose={handleCloseSignUpModal} />
+      )}
     </div>
   )
 }

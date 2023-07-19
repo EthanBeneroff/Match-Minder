@@ -67,15 +67,16 @@ function Signup({show, onClose}) {
 
 
     return (
-        <>
+        
         
         <Modal
           show = {show}
           className="modal show"
           style={{ display: 'block', position: 'initial' }}
           onHide={onClose}
+          centered
         >
-          <Modal.Dialog>
+          <div className="login-modal-container">
             <Modal.Header>
               <Modal.Title>Sign Up</Modal.Title>
             </Modal.Header>
@@ -126,10 +127,10 @@ function Signup({show, onClose}) {
             <Modal.Footer>
               
             </Modal.Footer>
-          </Modal.Dialog>
+            </div>
         </Modal>
         
-        </>
+        
       );
     }
 

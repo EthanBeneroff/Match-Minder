@@ -29,6 +29,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  padding-top: 60px;
 }
 
 h1 {
@@ -93,3 +94,81 @@ button:focus-visible {
   flex-direction: column;
   align-items: center;
 }
+
+.login-modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050; 
+  background-color: #6e6e6e;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+
+.horizontal-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #000000;
+  z-index: 100;
+  box-shadow: 0 10px 16px rgba(255, 0, 0, 0.1);
+  font-size: 1.6rem;
+}
+
+
+.horizontal-bar .navbar {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.horizontal-bar .nav-link {
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+  color: #6e6e6e;
+}
+
+
+.form-select {
+  font-size: 1.6rem; /* Increase font size by 60% */
+  font-family: 'Helvetica Neue', sans-serif; /* Apply a modern font family */
+}
+
+/* Increase the height and width of the select box */
+.form-select {
+  height: 60px; /* You can adjust the height as needed */
+  width: 350px; /* You can adjust the width as needed */
+  border-radius: 8px; /* Apply a rounded border */
+  border: 1px solid #ced4da; /* Apply a border color */
+  background-color: #f8f9fa; /* Apply a background color */
+  color: #333; /* Apply text color */
+  padding: 10px; /* Add some padding to the select box */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+  overflow: visible; /* Ensure text is not cut off */
+  z-index: 1; /* Ensure the select box is above other elements */
+}
+
+/* Style the arrow icon inside the select box */
+.form-select::-ms-expand {
+  display: none; /* Hide the default arrow icon for IE */
+}
+.form-select::after {
+  content: '\f107'; /* FontAwesome chevron-down icon */
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 2; /* Ensure the icon is above the select box */
+}
+
+/* Apply custom styles when the select box is focused */
+.form-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff; /* Add a blue border when focused */
+  z-index: 2; /* Ensure the select box is above other elements */
+}
+

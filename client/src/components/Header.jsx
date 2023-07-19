@@ -6,30 +6,30 @@ import Login from './Login'
 import AuthContext from './AuthContext'
 import Signup from './Signup'
 
-function Header() {
+function Header({handleLoginClick, handleSignUpClick }) {
 
 const {isAuthenticated, login, logout} = useContext(AuthContext)
-const [showLoginModal, setShowLoginModal] = useState(false);
-const [showSignUpModal, setShowSignUpModal] = useState(false)
+// const [showLoginModal, setShowLoginModal] = useState(false);
+// const [showSignUpModal, setShowSignUpModal] = useState(false)
 
-  const handleLoginClick = () => {
-    setShowLoginModal(true);
-  };
+//   const handleLoginClick = () => {
+//     setShowLoginModal(true);
+//   };
 
-  const handleCloseLoginModal = () => {
-    setShowLoginModal(false);
-  };
+//   const handleCloseLoginModal = () => {
+//     setShowLoginModal(false);
+//   };
 
-  const handleSignUpClick = () => {
-    setShowSignUpModal(true);
-  };
+//   const handleSignUpClick = () => {
+//     setShowSignUpModal(true);
+//   };
 
-  const handleCloseSignUpModal = () => {
-    setShowSignUpModal(false);
-  };
+//   const handleCloseSignUpModal = () => {
+//     setShowSignUpModal(false);
+//   };
 
   return (
-    <>
+    <div className="horizontal-bar">
     <Navbar expand="lg" >
       <Container>
         <Navbar.Brand>
@@ -47,13 +47,14 @@ const [showSignUpModal, setShowSignUpModal] = useState(false)
                 </Nav.Link></>)}
             {!isAuthenticated &&(<><Nav.Link
                   as={Link}
-                  
+                  to="#"
                   onClick={handleLoginClick}
                 >
                 Login
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
+                  to="#"
                   onClick={handleSignUpClick}
                 >
                 Sign Up
@@ -103,9 +104,9 @@ const [showSignUpModal, setShowSignUpModal] = useState(false)
         </Navbar.Collapse>
       </Container>
     </Navbar>
-    {showLoginModal && <Login show={showLoginModal} onClose={handleCloseLoginModal} />}
-    {showSignUpModal && <Signup show={showSignUpModal} onClose={handleCloseSignUpModal} />}
-    </>
+    {/* {showLoginModal && <Login show={showLoginModal} onClose={handleCloseLoginModal} />}
+    {showSignUpModal && <Signup show={showSignUpModal} onClose={handleCloseSignUpModal} />} */}
+    </div>
   )
 }
 
